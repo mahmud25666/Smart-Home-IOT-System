@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Home Simulation - Control and monitor your simulated smart home devices with real-time sensor data and automation">
+    <title>Smart Home Simulation | IoT Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🏠</span>
+                <h1>Smart Home</h1>
+            </div>
+            
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="total-power">0 W</span>
+                    <span class="stat-label">Total Power</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="active-devices">0</span>
+                    <span class="stat-label">Active Devices</span>
+                </div>
+            </div>
+            
+            <button class="sim-btn running" id="sim-toggle" onclick="toggleSimulation()">
+                ⏸️ Pause
+            </button>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Devices Section -->
+        <section class="section devices-section">
+            <div class="section-header">
+                <h2 class="section-title">Devices</h2>
+            </div>
+            <div id="devices-container">
+                <!-- Devices will be rendered here -->
+            </div>
+        </section>
+        
+        <!-- Sensors Section -->
+        <section class="section sensors-section">
+            <div class="section-header">
+                <h2 class="section-title">Sensors</h2>
+            </div>
+            <div id="sensors-container">
+                <!-- Sensors will be rendered here -->
+            </div>
+            
+            <!-- Manual Sensor Controls -->
+            <div class="manual-controls">
+                <h5>🎮 Manual Sensor Override</h5>
+                <div class="control-row">
+                    <button class="control-btn" onclick="setMotionDetected(true)">Trigger Motion</button>
+                    <button class="control-btn" onclick="setMotionDetected(false)">Clear Motion</button>
+                </div>
+                <div class="control-row">
+                    <button class="control-btn" onclick="setTemperature(30)">Set Hot (30°C)</button>
+                    <button class="control-btn" onclick="setTemperature(20)">Set Cold (20°C)</button>
+                </div>
+                <div class="control-row">
+                    <button class="control-btn" onclick="setAmbientLight(100)">Set Dark (100 lux)</button>
+                    <button class="control-btn" onclick="setAmbientLight(600)">Set Bright (600 lux)</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Automation Section -->
+            <section class="section automation-section">
+                <div class="section-header">
+                    <h2 class="section-title">Automation Rules</h2>
+                </div>
+                <div id="automation-container">
+                    <!-- Rules will be rendered here -->
+                </div>
+            </section>
+            
+            <!-- Activity Log -->
+            <section class="section log-section">
+                <div class="section-header">
+                    <h2 class="section-title">Activity Log</h2>
+                </div>
+                <div id="activity-log">
+                    <div class="log-entry">
+                        <span class="log-time">--:--:--</span>
+                        <span class="log-rule">System started</span>
+                    </div>
+                </div>
+            </section>
+        </aside>
+        
+        <!-- Energy Consumption Section -->
+        <section class="section energy-section">
+            <div>
+                <div class="section-header">
+                    <h2 class="section-title">Energy Consumption</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="power-chart"></canvas>
+                </div>
+            </div>
+            <div>
+                <div class="total-power-display">
+                    <div class="value" id="total-power-large">0 W</div>
+                    <div class="label">Current Usage</div>
+                </div>
+                <div class="chart-container" style="height: 150px;">
+                    <canvas id="power-breakdown-chart"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Scripts (order matters) -->
+    <script src="js/iot-gateway.js"></script>
+    <script src="js/devices.js"></script>
+    <script src="js/sensors.js"></script>
+    <script src="js/automation.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
